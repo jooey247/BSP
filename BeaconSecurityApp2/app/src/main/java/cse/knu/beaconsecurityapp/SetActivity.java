@@ -9,6 +9,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.ToggleButton;
 
+import java.util.Set;
+
 public class SetActivity extends AppCompatActivity {
 
     private WifiManager wifiManager;
