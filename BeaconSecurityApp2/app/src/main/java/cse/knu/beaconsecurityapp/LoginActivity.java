@@ -101,10 +101,10 @@ public class LoginActivity extends Activity {
                         else if(request.equals("mng"))
                             new Signup(new MngInfo(id,pw)).execute();
                     }else {
-                        Toast.makeText(this,"PW length must longer than 4",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(this,"PW must longer than 4",Toast.LENGTH_SHORT).show();
                     }
                 }else{
-                    Toast.makeText(this,"ID length musb longer thatn 1",Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this,"Sorry, No ID",Toast.LENGTH_SHORT).show();
                 }
                 break;
         }

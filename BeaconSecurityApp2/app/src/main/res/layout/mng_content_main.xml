@@ -8,6 +8,7 @@
     android:paddingTop="16dp"
     android:paddingBottom="16dp"
     app:layout_behavior="@string/appbar_scrolling_view_behavior" tools:showIn="@layout/mng_app_bar_main"
-    tools:context=".MngActivity.mng_MainActivity">
+    tools:context=".MngActivity.mng_MainActivity"
+    >
 
 </RelativeLayout>
