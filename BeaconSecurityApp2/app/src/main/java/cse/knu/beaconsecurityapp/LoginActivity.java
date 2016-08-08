@@ -8,7 +8,6 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
@@ -29,8 +28,9 @@ import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
 
-import cse.knu.beaconsecurityapp.Users.PlaceInfo;
-import cse.knu.beaconsecurityapp.Users.UserInfo;
+import cse.knu.beaconsecurityapp.Info.MngInfo;
+import cse.knu.beaconsecurityapp.Info.UserInfo;
+import cse.knu.beaconsecurityapp.MngActivity.mng_MainActivity;
 
 /**
  * Created by juhee on 2016-07-29.
@@ -72,28 +72,34 @@ public class LoginActivity extends Activity {
             case R.id.btn_user:
                 request="user";
                 editId.setText(macId);
+
                 editId.setFocusable(false);
                 editId.setClickable(false);
+                editId.setEnabled(false);
+                editpw.setFocusableInTouchMode(false);
                 break;
-            case R.id.btn_place:
+            case R.id.btn_mng:
                 editId.setText("");
-                request="place";
+                request="mng";
                 editId.setFocusable(true);
                 editId.setClickable(true);
+                editId.setEnabled(true);
+                editId.setFocusableInTouchMode(true);
+
                 break;
             case R.id.btn_login:
                 if(request.equals("user"))
                     new Login(new UserInfo(id,pw)).execute();
-                else if(request.equals("place"))
-                    new Login(new PlaceInfo(id,pw)).execute();
+                else if(request.equals("mng"))
+                    new Login(new MngInfo(id,pw)).execute();
                 break;
             case R.id.btn_sign:
                 if(id.length()>1){
                     if(pw.length()>4){
                         if(request.equals("user"))
                             new Signup(new UserInfo(id,pw)).execute();
-                        else if(request.equals("place"))
-                            new Signup(new PlaceInfo(id,pw)).execute();
+                        else if(request.equals("mng"))
+                            new Signup(new MngInfo(id,pw)).execute();
                     }else {
                         Toast.makeText(this,"PW length must longer than 4",Toast.LENGTH_SHORT).show();
                     }
@@ -108,7 +114,10 @@ public class LoginActivity extends Activity {
         private final String TAG="Login";
 
         private UserInfo userInfo;
-        private PlaceInfo placeInfo;
+        /*
+        * 디비 스키마 업데이트 2016-08-03
+        */
+        private MngInfo mngInfo;
 
         private String result;
 
@@ -116,7 +125,7 @@ public class LoginActivity extends Activity {
         로그인
          */
         public Login(UserInfo userInfo) {this.userInfo=userInfo;}
-        public Login(PlaceInfo placeInfo) {this.placeInfo=placeInfo;}
+        public Login(MngInfo mngInfo) {this.mngInfo=mngInfo;}
 
         @Override
         protected String doInBackground(Void... params) {
@@ -145,8 +154,8 @@ public class LoginActivity extends Activity {
                 JSONObject job = null;
                 if(request.equals("user"))
                     job = new JSONObject(gson.toJson(userInfo));
-                else if(request.equals("place"))
-                    job = new JSONObject(gson.toJson(placeInfo));
+                else if(request.equals("mng"))
+                    job = new JSONObject(gson.toJson(mngInfo));
 
                 os = conn.getOutputStream();
                 os.write(job.toString().getBytes());
@@ -185,7 +194,7 @@ public class LoginActivity extends Activity {
             super.onPostExecute(param);
             if(param.equals("login_success\n")){
                 Log.d(TAG,result);
-                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this,mng_MainActivity.class);
                 startActivity(intent);
                 finish();
             }
@@ -202,14 +211,17 @@ public class LoginActivity extends Activity {
         private final String TAG="Signup";
 
         private UserInfo userInfo;
-        private PlaceInfo placeInfo;
+
+      //   디비 스키마 업데이트 2016-08-03
+       private MngInfo mngInfo;
 
         private String result;
+
         /*
         회원가입
          */
         public Signup(UserInfo userInfo){this.userInfo=userInfo;}
-        public Signup(PlaceInfo placeInfo) {this.placeInfo=placeInfo;}
+        public Signup(MngInfo mngInfo) {this.mngInfo=mngInfo;}
         @Override
         protected String doInBackground(Void... params){
             String urlString = Static.baseURL + "users/";
@@ -237,8 +249,8 @@ public class LoginActivity extends Activity {
                 JSONObject job = null;
                 if(request.equals("user"))
                     job = new JSONObject(gson.toJson(userInfo));
-                else if(request.equals("place"))
-                    job = new JSONObject(gson.toJson(placeInfo));
+                else if(request.equals("mng"))
+                    job = new JSONObject(gson.toJson(mngInfo));
 
                 os = conn.getOutputStream();
                 os.write(job.toString().getBytes());
@@ -276,7 +288,7 @@ public class LoginActivity extends Activity {
             super.onPostExecute(param);
             if(param.equals("signup_success\n")){
                 Log.d(TAG,result);
-                Intent intent = new Intent(LoginActivity.this,MainActivity.class);
+                Intent intent = new Intent(LoginActivity.this,mng_MainActivity.class);
                 startActivity(intent);
                 finish();
             }

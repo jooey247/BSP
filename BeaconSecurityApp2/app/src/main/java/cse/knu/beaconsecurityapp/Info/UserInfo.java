@@ -1,6 +1,8 @@
-package cse.knu.beaconsecurityapp.Users;
+package cse.knu.beaconsecurityapp.Info;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by juhee on 2016-07-26.
@@ -8,8 +10,13 @@ import java.io.Serializable;
 public class UserInfo implements Serializable{
     private String userId;
     private String userPw;
-    private String plcName;
+
     private String userName;
+    private List<PlcInfo> plcInfos = new ArrayList<>();
+
+    public void addplcInfos(PlcInfo plcInfo){
+        plcInfos.add(plcInfo);
+    }
 
     public String getUserName() {
         return userName;
@@ -17,14 +24,6 @@ public class UserInfo implements Serializable{
 
     public void setUserName(String userName) {
         this.userName = userName;
-    }
-
-    public String getPlcName() {
-        return plcName;
-    }
-
-    public void setPlcName(String plcName) {
-        this.plcName = plcName;
     }
 
     public String getUserPw() {
@@ -43,10 +42,10 @@ public class UserInfo implements Serializable{
         this.userId = userId;
     }
 
-    public UserInfo(String userId, String userPw, String plcName,String userName) {
+    public UserInfo(String userId, String userPw,String userName) {
         this.userId = userId;
         this.userPw = userPw;
-        this.plcName = plcName;
+
         this.userName= userName;
     }
 

@@ -1,4 +1,4 @@
-package cse.knu.beaconsecurityapp.Users;
+package cse.knu.beaconsecurityapp.Info;
 
 import java.io.Serializable;
 

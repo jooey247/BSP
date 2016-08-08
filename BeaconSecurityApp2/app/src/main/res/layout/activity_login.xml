@@ -23,7 +23,7 @@
                     android:text="User"
                     android:onClick="onClick"/>
                 <RadioButton
-                    android:id="@+id/btn_place"
+                    android:id="@+id/btn_mng"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Business User"

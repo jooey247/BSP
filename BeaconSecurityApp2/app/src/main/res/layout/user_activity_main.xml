@@ -20,13 +20,13 @@
         android:id="@+id/drawer_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".MainActivity">
+        tools:context=".UserActivity.user_MainActivity">
 
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="#303F9F">
+            android:background="#e5eba51b">
 
         </FrameLayout>
 
@@ -35,9 +35,9 @@
             android:layout_width="240dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
-            android:background="#3F51B5" />
+            android:background="#abebac31" />
         <TextView
-            android:text="hello_world"
+            android:text="User main"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/Textview" />
