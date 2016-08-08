@@ -54,7 +54,7 @@
         android:text="New ToggleButton"
         android:id="@+id/toggleButton"
         android:layout_marginTop="70dp"
-        android:checked="false"
+        android:checked="true"
         android:layout_gravity="right|center"
         android:layout_below="@+id/flash_s"
         android:layout_alignParentEnd="true"
@@ -69,7 +69,8 @@
         android:layout_below="@+id/toggleButton"
         android:layout_alignParentEnd="true"
         android:textOn="ON"
-        android:textOff="OFF"/>
+        android:textOff="OFF"
+        android:checked="true" />
 
     <ToggleButton
         android:layout_width="wrap_content"
@@ -79,7 +80,8 @@
         android:layout_below="@+id/toggleButton2"
         android:layout_alignParentEnd="true"
         android:textOn="ON"
-        android:textOff="OFF"/>
+        android:textOff="OFF"
+        android:checked="true" />
 
     <ToggleButton
         android:layout_width="wrap_content"
@@ -89,7 +91,8 @@
         android:layout_below="@+id/toggleButton3"
         android:layout_alignParentEnd="true"
         android:textOn="ON"
-        android:textOff="OFF"/>
+        android:textOff="OFF"
+        android:checked="true" />
 
     <TextView
         android:layout_width="wrap_content"
