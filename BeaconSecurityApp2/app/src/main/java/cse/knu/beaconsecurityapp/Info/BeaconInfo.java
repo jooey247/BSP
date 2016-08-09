@@ -6,33 +6,33 @@ import java.io.Serializable;
  * Created by juhee on 2016-07-29.
  */
 public class BeaconInfo implements Serializable{
-    private String beaMdadr;
-    private String beaOption;
+    private String beaMcadrs;
     private String beaAdr;
+    private PlcInfo plcInfo;
+
+    public PlcInfo getPlcInfo() {
+        return plcInfo;
+    }
+
+    public void setPlcInfo(PlcInfo plcInfo) {
+        this.plcInfo = plcInfo;
+    }
 
     public BeaconInfo() {
     }
 
-    public BeaconInfo(String beaMdadr, String beaOption, String beaAdr) {
-        this.beaMdadr = beaMdadr;
-        this.beaOption = beaOption;
+    public BeaconInfo(String beaMcadrs, String beaAdr,PlcInfo plcInfo) {
+        this.beaMcadrs = beaMcadrs;
         this.beaAdr = beaAdr;
+        this.plcInfo=plcInfo;
     }
 
     public String getBeaMdadr() {
-        return beaMdadr;
+        return beaMcadrs;
     }
 
-    public void setBeaMdadr(String beaMdadr) {
-        this.beaMdadr = beaMdadr;
-    }
-
-    public String getBeaOption() {
-        return beaOption;
-    }
-
-    public void setBeaOption(String beaOption) {
-        this.beaOption = beaOption;
+    public void setBeaMdadr(String beaMcadrs) {
+        this.beaMcadrs = beaMcadrs;
     }
 
     public String getBeaAdr() {

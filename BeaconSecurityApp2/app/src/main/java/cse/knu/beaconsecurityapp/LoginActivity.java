@@ -81,11 +81,11 @@ public class LoginActivity extends Activity {
             case R.id.btn_mng:
                 editId.setText("");
                 request="mng";
+
                 editId.setFocusable(true);
                 editId.setClickable(true);
                 editId.setEnabled(true);
                 editId.setFocusableInTouchMode(true);
-
                 break;
             case R.id.btn_login:
                 if(request.equals("user"))
