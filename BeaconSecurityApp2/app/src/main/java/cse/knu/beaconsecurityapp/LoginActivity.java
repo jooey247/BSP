@@ -41,6 +41,8 @@ public class LoginActivity extends Activity {
     String macId;
 
     String request;
+    String user="user";
+    String mng="mng";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,6 +64,16 @@ public class LoginActivity extends Activity {
         return mWifiInfo.getMacAddress();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode,int resultCode,Intent intent){
+
+        switch (requestCode) {
+            case 0:
+                Log.i("activity","login_success");
+                break;
+        }
+    }
+
     public void onClick(View view){
         String id=editId.getText().toString();
         String pw=editpw.getText().toString();
@@ -70,17 +82,17 @@ public class LoginActivity extends Activity {
 
         switch (view.getId()){
             case R.id.btn_user:
-                request="user";
+                request=user;
                 editId.setText(macId);
 
                 editId.setFocusable(false);
                 editId.setClickable(false);
                 editId.setEnabled(false);
-                editpw.setFocusableInTouchMode(false);
+                editId.setFocusableInTouchMode(false);
                 break;
             case R.id.btn_mng:
                 editId.setText("");
-                request="mng";
+                request=mng;
 
                 editId.setFocusable(true);
                 editId.setClickable(true);
@@ -88,17 +100,17 @@ public class LoginActivity extends Activity {
                 editId.setFocusableInTouchMode(true);
                 break;
             case R.id.btn_login:
-                if(request.equals("user"))
+                if(request.equals(user))
                     new Login(new UserInfo(id,pw)).execute();
-                else if(request.equals("mng"))
+                else if(request.equals(mng))
                     new Login(new MngInfo(id,pw)).execute();
                 break;
             case R.id.btn_sign:
                 if(id.length()>1){
                     if(pw.length()>4){
-                        if(request.equals("user"))
+                        if(request.equals(user))
                             new Signup(new UserInfo(id,pw)).execute();
-                        else if(request.equals("mng"))
+                        else if(request.equals(mng))
                             new Signup(new MngInfo(id,pw)).execute();
                     }else {
                         Toast.makeText(this,"PW must longer than 4",Toast.LENGTH_SHORT).show();
@@ -152,9 +164,9 @@ public class LoginActivity extends Activity {
 
                 Gson gson = new Gson();
                 JSONObject job = null;
-                if(request.equals("user"))
+                if(request.equals(user))
                     job = new JSONObject(gson.toJson(userInfo));
-                else if(request.equals("mng"))
+                else if(request.equals(mng))
                     job = new JSONObject(gson.toJson(mngInfo));
 
                 os = conn.getOutputStream();
@@ -192,13 +204,19 @@ public class LoginActivity extends Activity {
         @Override
         protected void onPostExecute(String param){
             super.onPostExecute(param);
-            if(param.equals("login_success\n")){
-                Log.d(TAG,result);
-                Intent intent = new Intent(LoginActivity.this,mng_MainActivity.class);
-                startActivity(intent);
-                finish();
+            if(param.contains("login_success")){
+                Log.d(TAG, result);
+
+                if(request.equals(mng)) {
+                    //parma key : mng
+                    //result 0
+                    Intent intent = new Intent(LoginActivity.this, mng_MainActivity.class);
+                    intent.putExtra(request, mngInfo);
+                    startActivityForResult(intent, 0);
+                    finish();
+                }
             }
-            else if(param.equals("login_fail\n")){
+            else if(param.contains("login_fail")){
                 Log.d(TAG,result);
                 Toast.makeText(LoginActivity.this,"Wrong ID or PW",Toast.LENGTH_SHORT).show();
             }
@@ -273,6 +291,7 @@ public class LoginActivity extends Activity {
 //                        Log.d(TAG, result);
                 }
             } catch (MalformedURLException e) {
+                Toast.makeText(LoginActivity.this,"Server connection error",Toast.LENGTH_SHORT).show();
                 e.printStackTrace();
             } catch (ProtocolException e) {
                 e.printStackTrace();
@@ -286,13 +305,11 @@ public class LoginActivity extends Activity {
         @Override
         protected void onPostExecute(String param){
             super.onPostExecute(param);
-            if(param.equals("signup_success\n")){
+            if(param.contains("signup_success")){
                 Log.d(TAG,result);
-                Intent intent = new Intent(LoginActivity.this,mng_MainActivity.class);
-                startActivity(intent);
-                finish();
+                Toast.makeText(LoginActivity.this,"Hi,"+ userInfo.getUserId(),Toast.LENGTH_SHORT).show();
             }
-            else if(param.equals("signup_duplicate\n")){
+            else if(param.contains("signup_duplicate")){
                 Log.d(TAG,result);
                 Toast.makeText(LoginActivity.this,"Same ID exists",Toast.LENGTH_SHORT).show();
             }

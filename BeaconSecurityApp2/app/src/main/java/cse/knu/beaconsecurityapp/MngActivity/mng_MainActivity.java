@@ -1,18 +1,21 @@
 package cse.knu.beaconsecurityapp.MngActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
-import android.support.design.widget.Snackbar;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
+import android.widget.TextView;
 
+import cse.knu.beaconsecurityapp.Info.MngInfo;
 import cse.knu.beaconsecurityapp.R;
 
 public class mng_MainActivity extends AppCompatActivity
@@ -20,29 +23,36 @@ public class mng_MainActivity extends AppCompatActivity
     Toolbar toolbar;
     DrawerLayout dlDrawer;
     ActionBarDrawerToggle dtToggle;
+    String mng="mng";
+    String TAG="Main";
+
+    TextView mngName;
+
+    private Fragment beaconmngFragment;
+    MngInfo mngInfo;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mng_activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        beaconmngFragment = new BeaconMngFragment();
         setSupportActionBar(toolbar);
+
+        // param key : mng
+        // result : 0
+        Intent intent = getIntent();
+         mngInfo = (MngInfo)intent.getSerializableExtra(mng);
+        intent.putExtra("결과","매니져 로그인성공");
+        setResult(0,intent);
+        Log.v(TAG,mngInfo.getMngId()+"manager login success");
 
         dlDrawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         dtToggle = new ActionBarDrawerToggle(
                 this,dlDrawer,toolbar,R.string.navigation_drawer_open,R.string.navigation_drawer_close);
         dlDrawer.setDrawerListener(dtToggle);
         dtToggle.syncState();
-
-/*
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
@@ -52,7 +62,13 @@ public class mng_MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
-*/
+
+//        mngName=(TextView)findViewById(R.id.mngname);
+//        mngName.setText(mngInfo.getMngId());
+
+        /*
+        기본화면 설정
+         */
     }
 
     @Override
@@ -68,7 +84,7 @@ public class mng_MainActivity extends AppCompatActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.user_main, menu);
+        getMenuInflater().inflate(R.menu.mng_main, menu);
         return true;
     }
 
@@ -94,11 +110,40 @@ public class mng_MainActivity extends AppCompatActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_mngplc){
+            //transaction.replace(R.id.container,beaconmngFragment);
+            replaceFragment(1);
 
         }
+
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    public void replaceFragment(int fragmentId) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        if(fragmentId==1){
+            //Manage Beacon Fragment
+            beaconmngFragment=BeaconMngFragment.newInstance(mngInfo.getMngId());
+            transaction.replace(R.id.container,new BeaconMngFragment());
+        }
+
+//        transaction.addToBackStack(null);
+        transaction.commit();
+    }
+
+    public void replaceFragment(Fragment fragment){
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+
+        if(fragment instanceof BeaconMngFragment){
+            beaconmngFragment=fragment;
+            transaction.replace(R.id.container, beaconmngFragment);
+        }
+
+        transaction.addToBackStack(null);
+        transaction.commit();
+
     }
 }

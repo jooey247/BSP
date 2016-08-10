@@ -12,22 +12,24 @@
     android:gravity="bottom">
 
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="59dp"
+        android:layout_height="69dp"
         android:paddingTop="16dp"
-        android:src="@android:drawable/sym_def_app_icon"
+        android:src="@drawable/ic_app_mng"
         android:id="@+id/imageView"/>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingTop="16dp"
-        android:text="This is for Manager"
-       />
+        android:text="Hi manager"
+        android:textColor="#000000"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="android.studio@android.com" android:id="@+id/textView" />
+        android:text="@string/mng_ID"
+        android:id="@+id/mngname"
+        android:textColor="#000000"/>
 
 </LinearLayout>
