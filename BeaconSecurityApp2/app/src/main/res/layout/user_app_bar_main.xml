@@ -24,6 +24,6 @@
 
     </android.support.design.widget.AppBarLayout>
 
-    <include layout="@layout/user_content_main" />
+    <include layout="@layout/fragment_set" />
 
 </android.support.design.widget.CoordinatorLayout>

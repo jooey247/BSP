@@ -12,6 +12,8 @@ import android.net.wifi.WifiManager;
 import android.widget.ToggleButton;
 import java.util.Set;
 
+import cse.knu.beaconsecurityapp.R;
+
 public class SetActivity extends AppCompatActivity {
 
     private WifiManager wifiManager;
@@ -40,7 +42,7 @@ public class SetActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.user_content_main);//activity_set);
+        //setContentView(R.layout.user_content_main);//activity_set);
 
         camera = android.hardware.Camera.open();
         camera.release();
@@ -54,7 +56,9 @@ public class SetActivity extends AppCompatActivity {
         toggle_Button3=(ToggleButton)findViewById(R.id.toggleButton3);
         toggle_Button4=(ToggleButton)findViewById(R.id.toggleButton4);
 
-        getUsersOption();
+        toggle_Button.setChecked(true);
+
+        //getUsersOption();
     }
 
     public SetActivity(){}
@@ -151,5 +155,6 @@ public class SetActivity extends AppCompatActivity {
         toggle_Button3.setChecked(true);
 
         user_original_option_info = wifistate+audiostate+camerastate+flashstate;
+        System.out.println("***************"+user_original_option_info);
     }
 }
