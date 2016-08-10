@@ -31,7 +31,7 @@ import java.net.URL;
 import cse.knu.beaconsecurityapp.Info.MngInfo;
 import cse.knu.beaconsecurityapp.Info.UserInfo;
 import cse.knu.beaconsecurityapp.MngActivity.mng_MainActivity;
-
+import cse.knu.beaconsecurityapp.UserActivity.user_MainActivity;
 /**
  * Created by juhee on 2016-07-29.
  */
@@ -51,7 +51,8 @@ public class LoginActivity extends Activity {
         editId=(EditText)findViewById(R.id.edit_id);
         editpw=(EditText)findViewById(R.id.edit_pw);
 
-        macId=getMacId();
+        //macId=getMacId();
+        macId="ab:ce:ef:gh";
 
     }
 
@@ -193,10 +194,21 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(String param){
             super.onPostExecute(param);
             if(param.equals("login_success\n")){
-                Log.d(TAG,result);
-                Intent intent = new Intent(LoginActivity.this,mng_MainActivity.class);
-                startActivity(intent);
-                finish();
+
+                if(request.equals("mng")){
+                    Log.d(TAG,result);
+                    Intent intent = new Intent(LoginActivity.this,mng_MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+                /*슬기 수정*/
+                else if(request.equals("user")){
+                    Log.d(TAG,result);
+                    Intent intent = new Intent(LoginActivity.this,user_MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
             else if(param.equals("login_fail\n")){
                 Log.d(TAG,result);
@@ -287,10 +299,22 @@ public class LoginActivity extends Activity {
         protected void onPostExecute(String param){
             super.onPostExecute(param);
             if(param.equals("signup_success\n")){
-                Log.d(TAG,result);
-                Intent intent = new Intent(LoginActivity.this,mng_MainActivity.class);
-                startActivity(intent);
-                finish();
+
+                if(request.equals("mng")){
+                    Log.d(TAG,result);
+                    Intent intent = new Intent(LoginActivity.this,mng_MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                /*seulki*/
+                else if(request.equals("user")) {
+                    Log.d(TAG,result);
+                    Intent intent = new Intent(LoginActivity.this,user_MainActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
+
             }
             else if(param.equals("signup_duplicate\n")){
                 Log.d(TAG,result);
