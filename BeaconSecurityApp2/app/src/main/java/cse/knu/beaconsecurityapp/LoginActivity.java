@@ -51,8 +51,8 @@ public class LoginActivity extends Activity {
         editId=(EditText)findViewById(R.id.edit_id);
         editpw=(EditText)findViewById(R.id.edit_pw);
 
-        //macId=getMacId();
-        macId="ab:ce:ef:gh";
+        macId=getMacId();
+        //macId="ab:ce:ef:gh";
 
     }
 

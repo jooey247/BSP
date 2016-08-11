@@ -9,12 +9,12 @@ import java.util.List;
 public class PlcInfo implements Serializable {
     private String plcId;
     private String plcName;
-    private int plcOption;
+    private String plcOption;
     private List<UserInfo> userinfos;
     private MngInfo mngInfo;
     private List<BeaconInfo> beaconInfos;
 
-    public PlcInfo(String plcId, String plcName, int plcOption, MngInfo mngInfo) {
+    public PlcInfo(String plcId, String plcName, String plcOption, MngInfo mngInfo) {
         super();
         this.plcId = plcId;
         this.plcName = plcName;
@@ -23,7 +23,7 @@ public class PlcInfo implements Serializable {
     }
 
 
-    public PlcInfo(String plcId, String plcName, int plcOption, List<BeaconInfo> beaconInfos) {
+    public PlcInfo(String plcId, String plcName, String plcOption, List<BeaconInfo> beaconInfos) {
         super();
         this.plcId = plcId;
         this.plcName = plcName;
@@ -32,7 +32,7 @@ public class PlcInfo implements Serializable {
     }
 
 
-    public PlcInfo(String plcId, String plcName, int plcOption) {
+    public PlcInfo(String plcId, String plcName, String plcOption) {
         super();
         this.plcId = plcId;
         this.plcName = plcName;
@@ -85,12 +85,12 @@ public class PlcInfo implements Serializable {
     }
 
 
-    public int getPlcOption() {
+    public String  getPlcOption() {
         return plcOption;
     }
 
 
-    public void setPlcOption(int plcOption) {
+    public void setPlcOption(String  plcOption) {
         this.plcOption = plcOption;
     }
 
